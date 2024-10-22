@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mykpp4.Lab1Controller">
+   <children>
+      <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <BorderPane layoutX="450.0" layoutY="170.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <top>
+                  <AnchorPane prefHeight="18.0" prefWidth="1103.0" styleClass="top-Form" stylesheets="@Lab1.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane prefHeight="36.0" prefWidth="1100.0" styleClass="semiTop-Form" stylesheets="@Lab1.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Button fx:id="close" layoutX="1045.0" layoutY="1.0" mnemonicParsing="false" onAction="#close" prefHeight="27.0" prefWidth="54.0" styleClass="close" stylesheets="@choisePageDes.css" text="X">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="minimize" layoutX="991.0" mnemonicParsing="false" onAction="#minimize" prefHeight="28.0" prefWidth="53.0" styleClass="minimize" stylesheets="@choisePageDes.css" text="—">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="backBtn" layoutY="5.0" mnemonicParsing="false" onAction="#backBtnevent" prefHeight="26.0" prefWidth="79.0" styleClass="minimize" stylesheets="@choisePageDes.css" text="← Назад">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </top>
+               <left>
+                  <AnchorPane prefHeight="554.0" prefWidth="238.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane layoutX="6.0" layoutY="152.0" prefHeight="554.4" prefWidth="211.2" styleClass="leftSide" stylesheets="@choisePageDes.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label layoutX="12.0" layoutY="75.0" lineSpacing="2.0" prefHeight="17.0" prefWidth="200.0" text="Власники квартир ОСББ" textFill="WHITE">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </left>
+               <center>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <AnchorPane fx:id="Lab1_form" layoutX="344.0" layoutY="177.0" prefHeight="554.4" prefWidth="888.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <AnchorPane layoutX="11.0" layoutY="8.0" prefHeight="548.0" prefWidth="843.0" stylesheets="@Lab1.css">
+                                 <children>
+                                    <AnchorPane prefHeight="326.0" prefWidth="843.0" stylesheets="@Lab1.css">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                       </styleClass>
+                                       <children>
+                                          <TableView fx:id="Lab1_tableView" layoutX="14.0" layoutY="63.0" onMouseClicked="#Lab1_Select" prefHeight="246.0" prefWidth="817.0">
+                                            <columns>
+                                              <TableColumn fx:id="Lab1_col_ID" prefWidth="75.0" text="ID" />
+                                              <TableColumn fx:id="Lab1_col_user_name" prefWidth="75.0" text="Ім'я" />
+                                                <TableColumn fx:id="Lab1_col_sur_name" prefWidth="87.20001220703125" text="Фамілія" />
+                                                <TableColumn fx:id="Lab1_col_email" prefWidth="119.20001220703125" text="Електронна пошта" />
+                                                <TableColumn fx:id="Lab1_col_fhoneNum" prefWidth="113.60003662109375" text="Номер телефону" />
+                                                <TableColumn fx:id="Lab1_col_AprtamentNum" prefWidth="104.79995727539062" text="Номер квартири" />
+                                                <TableColumn fx:id="Lab1_col_Join_Date" prefWidth="128.79998779296875" text="Дата заселення" />
+                                                <TableColumn fx:id="Lab1_col_Payment_amouth" prefWidth="110.4000244140625" text="Оплачено грн." />
+                                            </columns>
+                                          </TableView>
+                                          <TextField fx:id="Lab1_Seach" layoutX="14.0" layoutY="24.0" onKeyTyped="#Lab1_search" prefHeight="26.0" prefWidth="230.0" promptText="Пошук🔍" />
+                                       </children>
+                                    </AnchorPane>
+                                    <Label layoutX="59.0" layoutY="326.0" text="ID:" />
+                                    <TextField fx:id="Lab1_ID" layoutX="53.0" layoutY="347.0" />
+                                    <Label layoutX="55.0" layoutY="377.0" text="Ім'я:" />
+                                    <TextField fx:id="Lab1_user_name" layoutX="53.0" layoutY="392.0" />
+                                    <Label layoutX="51.0" layoutY="420.0" text="Фамілія:" />
+                                    <TextField fx:id="Lab1_sur_name" layoutX="53.0" layoutY="434.0" />
+                                    <Label layoutX="53.0" layoutY="468.0" lineSpacing="1.0" text="Електронна пошта:" />
+                                    <TextField fx:id="Lab1_email" layoutX="53.0" layoutY="486.0" />
+                                    <Label layoutX="282.0" layoutY="326.0" text="Номер телефону:" />
+                                    <TextField fx:id="Lab1_phoneNum" layoutX="282.0" layoutY="347.0" />
+                                    <Label layoutX="282.0" layoutY="377.0" text="Номер квартири:" />
+                                    <TextField fx:id="Lab1_AprtamentNum" layoutX="282.0" layoutY="392.0" />
+                                    <Label layoutX="286.0" layoutY="420.0" text="Дата заселення:" />
+                                    <Label layoutX="279.0" layoutY="468.0" text="Оплачено в гривнях:" />
+                                    <TextField fx:id="Lab1_payment_amouth" layoutX="282.0" layoutY="486.0" />
+                                    <Button fx:id="Lab1_addBtn" layoutX="558.0" layoutY="347.0" mnemonicParsing="false" onAction="#Lab1_Add" prefHeight="46.0" prefWidth="78.0" text="Добавити" />
+                                    <Button fx:id="Lab1_updateBtn" layoutX="657.0" layoutY="347.0" mnemonicParsing="false" onAction="#Lab1_update" prefHeight="46.0" prefWidth="78.0" text="Змінити" />
+                                    <Button fx:id="Lab1_deleteBtn" layoutX="750.0" layoutY="347.0" mnemonicParsing="false" onAction="#Lab1_delete" prefHeight="46.0" prefWidth="78.0" text="Видалити" />
+                                    <Button fx:id="Lab1_ClearBtn" layoutX="480.0" layoutY="468.0" mnemonicParsing="false" onAction="#clearFields" prefHeight="56.0" prefWidth="91.0" text="Очистити текстові поля" wrapText="true" />
+                                    <DatePicker fx:id="Lab1_join_Date" layoutX="284.0" layoutY="434.0" prefHeight="26.0" prefWidth="150.0" />
+                                    <Label layoutX="250.0" layoutY="351.0" text="(+38)" />
+                                 </children>
+                                 <styleClass>
+                                    <String fx:value="white-bg" />
+                                    <String fx:value="shadow" />
+                                 </styleClass>
+                              </AnchorPane>
+                           </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
+               </center>
+            </BorderPane>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

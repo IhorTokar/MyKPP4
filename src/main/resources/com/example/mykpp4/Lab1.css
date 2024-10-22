@@ -1,0 +1,17 @@
+.top-Form{
+-fx-background-color:#fff;
+-fx-border-color:#000;
+-fx-border-width:.4px .4px .2px .4px;}
+
+.semiTop-Form{
+-fx-background-color:#efefef;
+-fx-border-color:#000;
+-fx-border-width:.2px .4px .8px .4px;}
+
+.shadow{
+-fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.5), 6,0,0,0);}
+
+
+.white-bg{
+-fx-background-color:#fff;
+-fx-background-radius:8px;}

@@ -1,0 +1,31 @@
+
+.close{
+-fx-background-color:transparent;
+-fx-cursor:hand;
+-fx-font-weight: bold;
+}
+
+.close:hover{
+-fx-background-color:#ff3547;
+}
+
+.minimize{
+-fx-background-color:transparent;
+-fx-cursor:hand;
+-fx-font-weight: bold;
+}
+
+.minimize:hover{
+-fx-background-color:#ddd;
+}
+
+.leftSide{
+-fx-background-color:#383838;
+}
+
+.choise-button{
+-fx-background-color:#79bc3f;
+-fx-cursor:hand;
+}
+.choise-button:hover{
+-fx-background-color:#4eb98b;}
