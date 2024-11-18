@@ -198,6 +198,25 @@ public class Lab2Controller {
             Lab2_entries_TableWiew.setItems(FXCollections.observableArrayList(filteredEntries));
         });
     }
+    public void clearClientFields(){
+        Lab2_client_ID_textField.setText("");
+        Lab2_Name_textField.setText("");
+        Lab2_Sur_Name_textField.setText("");
+        Lab2_Third_name_textField.setText("");
+        Lab2_Gmail_textField.setText("");
+        Lab2_PhoneNum_textField.setText("");
+    }
+    public void clearServiceFields(){
+        Lab2_service_ID_textField.setText("");
+        Lab2_service_name_textField.setText("");
+        Lab2_service_price_textField1.setText("");
+    }
+    public void clearEntriesFields(){
+        Lab2_entries_ID_textField.setText("");
+        Lab2_gmail_textDisplay.setText("");
+        Lab2_phone_textDisplay.setText("");
+        Lab2_payment_sum.setText("");
+    }
     public void clientChoise(){
         SalonUsersData salonUser = Lab2_client_TableWiew.getSelectionModel().getSelectedItem();
         Integer userIndex = Lab2_client_TableWiew.getSelectionModel().getSelectedIndex();
@@ -267,6 +286,13 @@ public class Lab2Controller {
 
         SalonUsersData.addUser(clientID, userName, usersurName, userThirdName, userGmail, userPhoneNum);
         loadClientData();
+        initializeChoiceBoxes();
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Інформація");
+        alert.setHeaderText(null);
+        alert.setContentText("Запис успішно добавлений");
+        alert.showAndWait();
     }
     public void addService(){
         if (Lab2_service_ID_textField.getText().isEmpty() || Lab2_service_price_textField1.getText().isEmpty() ||
@@ -279,9 +305,9 @@ public class Lab2Controller {
             alert.showAndWait();
             return;
         }
-        int clientId = Integer.parseInt(Lab2_client_ID_textField.getText());
-        for (SalonUsersData user : usersList) {
-            if (user.getID() == clientId) {
+        int serviceID = Integer.parseInt(Lab2_service_ID_textField.getText());
+        for (SalonServicesData service : servicesList) {
+            if (service.getID() == serviceID) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Помилка");
                 alert.setHeaderText(null);
@@ -290,12 +316,14 @@ public class Lab2Controller {
                 return;
             }
         }
-        int serviceID =  Integer.parseInt(Lab2_service_ID_textField.getText());
+
+        serviceID =  Integer.parseInt(Lab2_service_ID_textField.getText());
         String serviceName = Lab2_service_name_textField.getText();
         Double servicePrice = Double.parseDouble(Lab2_service_price_textField1.getText());
 
         SalonServicesData.addService(serviceID, serviceName, servicePrice);
         loadServiceData();
+        initializeChoiceBoxes();
     }
     public void addEntries(){
         if (Lab2_client_choiseBox.getValue() == null ||
@@ -351,7 +379,13 @@ public class Lab2Controller {
                     isValid = true;
                 }
             }
-            if(isValid){
+            Boolean isUsedNow = false;
+            for(SalonEntriesData entrie : entriesList){
+                if(userId == entrie.getUser().getID()){
+                    isUsedNow = true;
+                }
+            }
+            if(isValid && !isUsedNow){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Підтвердження");
             alert.setHeaderText(null);
@@ -365,13 +399,14 @@ public class Lab2Controller {
                 alert.setContentText("Запис був успішно видалений.");
                 alert.showAndWait();
                 loadClientData();
+                initializeChoiceBoxes();
             }
 
             }else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Помилка");
                 alert.setHeaderText(null);
-                alert.setContentText("Введено невірний ID ористувача який відсутній в таблиці.");
+                alert.setContentText("Введено невірний ID користувача який відсутній в таблиці або він використовується і в таблиці записей.");
                 alert.showAndWait();
                 return;
             }
@@ -395,7 +430,13 @@ public class Lab2Controller {
                     isValid = true;
                 }
             }
-            if (isValid) {
+            Boolean isUsedNow = false;
+            for(SalonEntriesData entrie : entriesList){
+                if(serviceId == entrie.getService().getID()){
+                    isUsedNow = true;
+                }
+            }
+            if (isValid && !isUsedNow) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Підтвердження");
                 alert.setHeaderText(null);
@@ -409,12 +450,13 @@ public class Lab2Controller {
                     alert.setContentText("Сервіс був успішно видалений.");
                     alert.showAndWait();
                     loadServiceData();
+                    initializeChoiceBoxes();
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Помилка");
                 alert.setHeaderText(null);
-                alert.setContentText("Введено невірний ID сервісу, якого немає в таблиці.");
+                alert.setContentText("Введено невірний ID сервісу який відсутній в таблиці або він використовується і в таблиці записей.");
                 alert.showAndWait();
                 return;
             }
@@ -453,6 +495,7 @@ public class Lab2Controller {
                     alert.setContentText("Запис був успішно видалений.");
                     alert.showAndWait();
                     loadEntriesData();
+                    initializeChoiceBoxes();
                 }
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -490,7 +533,7 @@ public class Lab2Controller {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Підтвердження");
                 alert.setHeaderText(null);
-                alert.setContentText("Ви видалити цей запис?");
+                alert.setContentText("Ви змінити цей запис?");
                 Optional<ButtonType> optional = alert.showAndWait();
                 if(optional.get().equals(ButtonType.OK)){
                     int clientID =  Integer.parseInt(Lab2_client_ID_textField.getText());
@@ -502,11 +545,13 @@ public class Lab2Controller {
 
                     SalonUsersData.updateUserByID(clientID, userName, usersurName, userThirdName, userGmail, userPhoneNum);
                     loadClientData();
+                    initializeChoiceBoxes();
+                    loadEntriesData();
                 }
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Інформація");
                 alert.setHeaderText(null);
-                alert.setContentText("Запис був успішно видалений.");
+                alert.setContentText("Запис був успішно змінений.");
                 alert.showAndWait();
             }else{
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -540,7 +585,7 @@ public class Lab2Controller {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Підтвердження");
                 alert.setHeaderText(null);
-                alert.setContentText("Ви бажаєте видалити цей сервіс?");
+                alert.setContentText("Ви бажаєте змінений цей сервіс?");
                 Optional<ButtonType> optional = alert.showAndWait();
                 if (optional.get().equals(ButtonType.OK)) {
                     int serviceID =  Integer.parseInt(Lab2_service_ID_textField.getText());
@@ -549,6 +594,8 @@ public class Lab2Controller {
 
                     SalonServicesData.updateServiceByID(serviceID, serviceName, servicePrice);
                     loadServiceData();
+                    initializeChoiceBoxes();
+                    loadEntriesData();
 
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Інформація");
@@ -589,7 +636,7 @@ public class Lab2Controller {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Підтвердження");
                 alert.setHeaderText(null);
-                alert.setContentText("Ви бажаєте видалити цей запис?");
+                alert.setContentText("Ви бажаєте змінити цей запис?");
                 Optional<ButtonType> optional = alert.showAndWait();
                 if (optional.get().equals(ButtonType.OK)) {
                     int entryID =  Integer.parseInt(Lab2_entries_ID_textField.getText());

@@ -26,11 +26,9 @@ public class SalonUsersData {
     public static void addUsertoClass(Integer ID, String user_name, String user_surName, String user_thirdName, String gmail, String phoneNum) {
         new SalonUsersData(ID, user_name, user_surName, user_thirdName, gmail, phoneNum);
     }
-
     public static List<SalonUsersData> getAllUsers() {
         return new ArrayList<>(Users_data);
     }
-
     public static void addUser(Integer ID, String user_name, String user_surName, String user_thirdName, String gmail, String phoneNum) {
         String sqlClients = "INSERT INTO clients (ID, first_name, sur_name, third_name, gmail, phone_num) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -51,9 +49,8 @@ public class SalonUsersData {
             e.printStackTrace();
         }
     }
-
     public static void initializeUsers() {
-        if (!Users_data.isEmpty()) return;
+        Users_data.clear();
 
         String sqlClients = "SELECT * FROM clients";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -74,7 +71,6 @@ public class SalonUsersData {
             e.printStackTrace();
         }
     }
-
     public static List<String> getAllUserFullNames() {
         List<String> usersFullNames = new ArrayList<>();
         for (SalonUsersData users : Users_data) {
@@ -100,11 +96,8 @@ public class SalonUsersData {
                 filteredUsers.add(user);
             }
         }
-
         return filteredUsers;
     }
-
-
     public static void removeUserByID(Integer id) {
         String sqlClients = "DELETE FROM clients WHERE ID = ?";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -118,8 +111,6 @@ public class SalonUsersData {
             e.printStackTrace();
         }
     }
-
-
     public static void updateUserByID(Integer id, String user_name, String user_surName, String user_thirdName, String gmail, String phoneNum) {
         String sqlClients = "UPDATE clients SET first_name = ?, sur_name = ?, third_name = ?, gmail = ?, phone_num = ? WHERE ID = ?";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -134,20 +125,11 @@ public class SalonUsersData {
 
             preparedStatement.executeUpdate();
 
-            SalonUsersData user = getUserByID(id);
-            if (user != null) {
-                user.user_name = user_name;
-                user.user_surName = user_surName;
-                user.user_thirdName = user_thirdName;
-                user.gmail = gmail;
-                user.phoneNum = phoneNum;
-            }
-
+            initializeUsers();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
     public static SalonUsersData getUserByID(Integer id) {
         for (SalonUsersData user : Users_data) {
@@ -157,27 +139,21 @@ public class SalonUsersData {
         }
         return null;
     }
-
     public Integer getID() {
         return ID;
     }
-
     public String getUser_name() {
         return user_name;
     }
-
     public String getUser_surName() {
         return user_surName;
     }
-
     public String getUser_thirdName() {
         return user_thirdName;
     }
-
     public String getGmail() {
         return gmail;
     }
-
     public String getPhoneNum() {
         return phoneNum;
     }

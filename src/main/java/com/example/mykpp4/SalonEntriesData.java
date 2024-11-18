@@ -14,7 +14,6 @@ public class SalonEntriesData {
     private Double servicePrice;
     private SalonServicesData service;
     private SalonUsersData user;
-
     public SalonEntriesData(Integer id, Date entriesDate, SalonServicesData service, SalonUsersData user) {
         this.service = service;
         this.user = user;
@@ -24,7 +23,6 @@ public class SalonEntriesData {
         this.serviceName = service.getService_name();
         this.servicePrice = service.getService_price();
     }
-
     public static void initializeEntries() {
         entriesData.clear();
 
@@ -50,7 +48,6 @@ public class SalonEntriesData {
             e.printStackTrace();
         }
     }
-
     public static void addEntry(Integer id, Date entriesDate, SalonUsersData user, SalonServicesData service) {
         String sqlInsert = "INSERT INTO entries (ID, entry_date, client_ID, service_ID) VALUES (?, ?, ?, ?)";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -68,7 +65,6 @@ public class SalonEntriesData {
             e.printStackTrace();
         }
     }
-
     public static void removeEntryByID(Integer id) {
         String sqlDelete = "DELETE FROM entries WHERE ID = ?";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -103,7 +99,6 @@ public class SalonEntriesData {
                 userData.getUser_name().charAt(0) + "." +
                 userData.getUser_thirdName().charAt(0) + ".";
     }
-
     public static SalonEntriesData getEntryByID(Integer id) {
         for (SalonEntriesData entry : entriesData) {
             if (entry.getID().equals(id)) {
@@ -115,8 +110,6 @@ public class SalonEntriesData {
     public static List<SalonEntriesData> getAllEntries() {
         return new ArrayList<>(entriesData);
     }
-
-
     public Integer getID() {
         return ID;
     }
@@ -124,38 +117,29 @@ public class SalonEntriesData {
         if (searchTerm == null || searchTerm.isEmpty()) {
             return getAllEntries();
         }
-
         List<SalonEntriesData> filteredEntries = new ArrayList<>();
         String lowerCaseSearchTerm = searchTerm.toLowerCase();
-
         for (SalonEntriesData entry : entriesData) {
-            if (entry.getUserFullName().toLowerCase().contains(lowerCaseSearchTerm) ||
+            if (entry.getID().toString().contains(lowerCaseSearchTerm) ||  entry.getUserFullName().toLowerCase().contains(lowerCaseSearchTerm) ||
                     entry.getServiceName().toLowerCase().contains(lowerCaseSearchTerm)||
                     entry.getServicePrice().toString().toLowerCase().contains(lowerCaseSearchTerm)) {
                 filteredEntries.add(entry);
             }
         }
-
         return filteredEntries;
     }
-
-
     public Date getEntriesDate() {
         return entriesDate;
     }
-
     public String getUserFullName() {
         return userFullName;
     }
-
     public Double getServicePrice() {
         return servicePrice;
     }
-
     public String getServiceName() {
         return serviceName;
     }
-
     public SalonUsersData getUser() {
         return user;
     }

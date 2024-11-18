@@ -28,7 +28,6 @@ public class SalonServicesData {
                 int id = resultSet.getInt("ID");
                 String name = resultSet.getString("service_name");
                 Double price = resultSet.getDouble("price");
-
                 serviceData.add(new SalonServicesData(id, name, price));
             }
         } catch (SQLException e) {
@@ -47,28 +46,23 @@ public class SalonServicesData {
             preparedStatement.executeUpdate();
 
             serviceData.add(new SalonServicesData(ID, service_name, service_price));
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     public static List<SalonServicesData> searchServices(String searchTerm) {
         if (searchTerm == null || searchTerm.isEmpty()) {
-            return getAllServices(); // Return all services if the search term is empty
+            return getAllServices();
         }
-
         List<SalonServicesData> filteredServices = new ArrayList<>();
         String lowerCaseSearchTerm = searchTerm.toLowerCase();
-
         for (SalonServicesData service : serviceData) {
-            if (service.getService_name().toLowerCase().contains(lowerCaseSearchTerm)) {
+            if (service.getService_name().toLowerCase().contains(lowerCaseSearchTerm) || service.getService_price().toString().contains(lowerCaseSearchTerm)) {
                 filteredServices.add(service);
             }
         }
-
-        return filteredServices; // Return the filtered list
+        return filteredServices;
     }
-
     public static void removeServiceByID(Integer id) {
         String sqlClients = "DELETE FROM services WHERE ID = ?";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -89,7 +83,6 @@ public class SalonServicesData {
         }
         return serviceNames;
     }
-
     public static void updateServiceByID(Integer id, String service_name, Double service_price) {
         String sqlClients = "UPDATE services SET service_name = ?, price = ? WHERE ID = ?";
         try (Connection connection = DBConnectionLab2.getConnection();
@@ -105,7 +98,6 @@ public class SalonServicesData {
             e.printStackTrace();
         }
     }
-
     public static SalonServicesData getServiceByID(Integer id) {
         for (SalonServicesData service : serviceData) {
             if (service.getID().equals(id)) {
@@ -114,19 +106,15 @@ public class SalonServicesData {
         }
         return null;
     }
-
     public static List<SalonServicesData> getAllServices() {
         return new ArrayList<>(serviceData);
     }
-
     public Integer getID() {
         return ID;
     }
-
     public String getService_name() {
         return service_name;
     }
-
     public Double getService_price() {
         return service_price;
     }
